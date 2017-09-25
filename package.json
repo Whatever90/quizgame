@@ -1,21 +1,28 @@
 {
-  "name": "qwerty",
+  "name": "bletexam",
   "version": "1.0.0",
   "description": "",
-  "main": "server - Copy.js",
+  "main": "server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.17.2",
-    "ejs": "^2.5.7",
-    "express": "^4.15.4",
+    "body-parser": "^1.18.2",
+    "express": "^4.15.5",
     "express-session": "^1.15.5",
-    "express-socket.io-session": "^1.3.2",
-    "mongoose": "^4.11.11"
+    "mongoose": "^4.11.13"
   },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Whatever90/quizgame.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Whatever90/quizgame/issues"
+  },
+  "homepage": "https://github.com/Whatever90/quizgame#readme"
 }
