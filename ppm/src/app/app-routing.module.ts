@@ -8,17 +8,20 @@ import { DeleteComponent } from './delete/delete.component';
 import { PostsComponent } from './posts/posts.component';
 import { HomeListComponent } from './home/home-list/home-list.component';
 import { HomeNewComponent } from './home/home-new/home-new.component';
+import { HomeGameComponent } from './home/home-game/home-game.component';
 import { AllComponent } from './products/all/all.component';
 import { ProductsAllComponent } from './products/products-all/products-all.component';
 import { ProductMylistComponent } from './products/product-mylist/product-mylist.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },
-	{ path: 'browse', component: ProductsComponent , children:[
-		{path: 'all', component: ProductsAllComponent },
-		{path: 'listings', component: ProductMylistComponent}
-	]},
-	// { path: 'ratings', component: PostsComponent },
+	// { path: 'browse', component: ProductsComponent , children:[
+	// 	{path: 'all', component: ProductsAllComponent },
+	// 	{path: 'listings', component: ProductMylistComponent}
+	// ]},
+	{ path: 'main', component: HomeListComponent },
+	{ path: '#new_question', component: HomeNewComponent },
+	{ path: 'lets_play', component: HomeGameComponent },
 	// { path: 'players/addplayer', component: HomeNewComponent },
 	// { path: 'players/delete/:id', component: HomeNewComponent },
 	

@@ -3,4 +3,10 @@
 	background-color: azure;
 	display: flex;
 	padding: 10px 10px;
+	width: 50%;
+}
+#all{
+	margin: auto 10px;
+}
+.button{ 
 }

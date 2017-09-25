@@ -13,12 +13,56 @@ export class TaskService {
    fighter2;
    key = []
 	posts = [];
+  answers;
+  lastgame;
    constructor(private _r: Router, private _http: Http) {
 
    };
+   showlastscore(user, callback){
+     this._http.post('/users/lastscoreshow', user)
+     .map(data => data)
+     .subscribe(data=> callback(data))
+   }
+   addScore(send, lastscore){
+     this.lastscoreadd(lastscore)
+
+     this._http.post('/user/score', send).subscribe(
+         (data) => data = data.json(),
+         (err) => console.log(err)
+      )
+   }
+   lastscoreadd(last){
+     this._http.post('/user/lastscoreadd', last).subscribe(
+         (data) => data = data.json(),
+         (err) => console.log(err)
+      )
+   }
+   newQuest(question){
+      console.log('taskservice: creating a new question')
+      console.log(question)
+      this._http.post('/questions/new', question).subscribe(
+         (data) => data = data.json(),
+         (err) => console.log(err)
+      )
+   }
+   
+   allQuestions(callback){
+     this._http.post('/questions/all', 'lol')
+     .map(data => data.json())
+     .subscribe(data=> callback(data))
+   }
+   showAll(callback){
+     this._http.post('/users/all', 'lol')
+     .map(data => data.json())
+     .subscribe(data=> callback(data))
+   }
    create(user, callback){
-      console.log('second step of storing')
-      this._http.post("/user/new", user)
+     console.log('craeting user =>', user)
+       this.user = {
+         user: user
+       }
+      console.log('second step of craeting')
+      this._http.post("/user/new", this.user)
         .map(data => data.json() ) //
         .subscribe(data => callback(data))
    }
@@ -31,6 +75,9 @@ export class TaskService {
       )
    }
    login(user, callback){
+     this.user = {
+       user: user
+     }
      console.log('second step of login')
       this._http.post("/user/login", user)
         .map(data => data.json() ) //
@@ -43,6 +90,7 @@ export class TaskService {
         .subscribe(data => callback(data))
    }
    storeUs(user){
+     console.log('task service. storeUs: stroing', user)
      this._http.post('/user/store', user).subscribe(
          (data) => data = data.json(),
          (err) => console.log(err)
@@ -102,22 +150,22 @@ export class TaskService {
 
 
 
-   show(callback){
-      console.log('show all!')
-   	this._http.get("/users").subscribe(
-         (data) => callback(data.json()),
-         (err) => console.log(err)
-      )
-   }
-   add(user){
-      this.context = user
-      console.log("service is trying..")
-      console.log(this.context)
-     this._http.post("/user/new", this.context)
-       .map( data => data.json() )
-       .toPromise();
-      console.log('did it work?')
-   }
+   // show(callback){
+   //    console.log('show all!')
+   // 	this._http.get("/users").subscribe(
+   //       (data) => callback(data.json()),
+   //       (err) => console.log(err)
+   //    )
+   // }
+   // add(user){
+   //    this.context = user
+   //    console.log("service is trying..")
+   //    console.log(this.context)
+   //   this._http.post("/user/new", this.context)
+   //     .map( data => data.json() )
+   //     .toPromise();
+   //    console.log('did it work?')
+   // }
    
    // update(status, id){
    //    let user ={

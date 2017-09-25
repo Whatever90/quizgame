@@ -12,26 +12,46 @@ import { HomeComponent } from './../home.component'
 export class HomeListComponent implements OnInit {
 users = []
 id;
-  constructor(private _taskService: TaskService) { 
-  	this.showAll()
+lastscore;
+user
+  constructor(private _taskService: TaskService, private _r: Router) { 
+    this.showUser()
+  	this.showAllUsers()
+    
   }
-  showAll(){
-  	this._taskService.show(function(data){
-	 		this.users = data
-  	}.bind(this))
+  checklastscore(){
+    this._taskService.showlastscore(this.user, function(data,err){
+      console.log('data', data)
+      console.log('err', err)
+    })
   }
-  confirm(id) {
-    var r = confirm("Are you sure?");
-    this.id = id
-    if (r == true) {
-        this.delete(this.id)
-    } else {
-     console.log('deletion has been canceled')   
-    }
-}
-  delete(id){
-  	this._taskService.delete(id)
-  	this.showAll()
+    showUser(){
+    this._taskService.showUser(function(data, user){
+      console.log('this is user', user)
+      console.log('this is data', data)
+      this.user = data
+    }.bind(this))
+    this.checklastscore()
+  }
+ showAllUsers(){
+     console.log('lets show all users!')
+    this._taskService.showAll(function(err, data){
+      console.log(data)
+      console.log('----------------------')
+      console.log(err)
+      if(err){
+        console.log('somehow true statement is ERROR, lol')
+        console.log(err)
+        this.users = err
+      }
+      if(data){
+        console.log('data!!!!!')
+        this.users = data
+      }
+    }.bind(this))
+  }
+  game(){
+    this._r.navigateByUrl('lets_play')
   }
   ngOnInit() {
   }

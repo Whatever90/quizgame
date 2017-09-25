@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 //var Quote = mongoose.model('Quote');
 var user = require('./../controllers/users.js');
 var product = require('./../controllers/products.js')
+var question = require('./../controllers/questions.js')
 var session = require('express-session');
 // original code:
 var express = require('express')
@@ -11,9 +12,35 @@ var path = require('path')
 //app.use(session({secret: 'codingdojorocks'})); 
 console.log('GELLO!')
 module.exports = function(app) {
-app.get('/users', (req, res, next)=>{
-	// console.log("let's show all players!")
+  ////////////////////////////
+app.post('/users/all', (req, res, next)=>{
+	console.log("let's show all players!")
   	user.showAll(req, res)
+    });
+app.post('/questions/new', (req, res, next)=>{
+  console.log("routes: new question")
+    question.create(req, res)
+    })
+app.post('/questions/all', (req, res, next)=>{
+  console.log("routes: let's show all questions!")
+    question.showAll(req, res)
+    });
+app.post('/questions/answers', (req, res, next)=>{
+  console.log("routes: let's show all questions!")
+    question.answers(req, res)
+    });
+
+app.post('/user/score', (req, res, next)=>{
+  console.log("let's show all players!")
+    user.score(req, res)
+    });
+app.post('/user/lastscoreadd', (req, res, next)=>{
+  console.log("let's add the last score!")
+    user.lastscoreadd(req, res)
+    });
+app.post('/user/lastscoreshow', (req, res, next)=>{
+  console.log("let's add the last score!")
+    user.lastscoreshow(req, res)
     });
 ///////////////////////////////////////////////////////////////
 /////////////////////////!!!!!!!///////////////////////////////

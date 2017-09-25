@@ -1,3 +1,4 @@
-
-<h2>List of Players!</h2>
-<div *ngFor='let x of users; let ind = index'><span *ngIf='x.position && x.game1 && x.game2 && x.game3'><span>Name: {{x.name}}</span><span>; Position: {{x.position}}</span><span style="color: red">         <button (click)='confirm(x._id)'>Delete</button> </span></span></div>
+<button (click)='game()'>START THE BRAIN-GAME</button>
+<div *ngFor='let x of users'>
+  <p>{{x.name}} {{x.score}}</p>
+</div>

@@ -13,7 +13,7 @@ import { LoginUser } from './../loginUser';
 })
 export class HomeComponent implements OnInit {
 	 users = [];
-  user = new User();
+  user;
   loginUser = new LoginUser()
   error;
   errormessage;
@@ -21,77 +21,84 @@ export class HomeComponent implements OnInit {
   product;
   length;
 
-  constructor(private _taskService: TaskService, private _r: Router) { 
-  	
-    this.showOne()
+  constructor(private _taskService: TaskService, private _r: Router, ) { 
+    //this.showAllUsers()
   }
-  showAll(){
-     console.log('lets show all!')
-    this._taskService.showMe(function(err, data){
+myFunction() {
+    var person = prompt(`Login`)
+    if (person.length>1) {
+        console.log('hello', person)
+        this.user = person
+        this.onSubmit1()
+    }else{
+      this.myFunction()
+    }
+}
+
+  showAllUsers(){
+     console.log('lets show all users!')
+    this._taskService.showAll(function(err, data){
       console.log(data)
       console.log('----------------------')
       console.log(err)
       if(err){
         console.log('somehow true statement is ERROR, lol')
         console.log(err)
-        this.products = err
-        console.log(this.products.length)
-        this.product = this.products[Math.floor(Math.random()*this.products.length)]
+        this.users = err
       }
       if(data){
-        console.log('yes!!!!!!!!!!!!!!')
-        this.products = data
+        console.log('data!!!!!')
+        this.users = data
       }
     }.bind(this))
   }
-  showOne(){
-    this.showAll()
-    this.length = 1
-    console.log('=====================')
-    console.log(this.products)
-    console.log('=====================')
-    // var x = Math.floor(Math.random()*length)
-    // this.product = this.product[x]
+  // showOne(){
+  //   this.showAll()
+  //   this.length = 1
+  //   console.log('=====================')
+  //   console.log(this.products)
+  //   console.log('=====================')
+  //   // var x = Math.floor(Math.random()*length)
+  //   // this.product = this.product[x]
 
-  }
-  onSubmit(){
+  // }
+  onSubmit1(){
       console.log(this.user)
-      this._taskService.create(this.user, function(data){
-        console.log(data)
+      this._taskService.create(this.user, function(data, user){
         if(!data){
           console.log('something wrong')
-          alert('email is already used by another user')
+          alert(`Welcome back, ${this.user}!`)
+          this.login(this.user)
         }
         if(data){
           console.log('exellent!')
           console.log(data)
           this.storeUser(data)
-          this.errormessage = ''
-          this._r.navigateByUrl('browse/all')
+          this._r.navigateByUrl('/main')
         }
       }.bind(this))
-      this.user = new User();
     
   }
-  login(){
-    this._taskService.login(this.loginUser, function(data){
+  login(loginUser){
+    this._taskService.login(loginUser, function(data){
       console.log(data)
       if(!data){
         console.log('failed to login')
-        alert('wrong email or password')
+        this.myFunction()
       }
       if(data){
         this.storeUser(data)
-        console.log('logining')
-        this._r.navigateByUrl('browse/all')
+        console.log('logining was successful!')
+        this._r.navigateByUrl('/main')
       }
     }.bind(this))
-    this.loginUser = new LoginUser
   }
   storeUser(user){
+    console.log('ok, saving the user')
     this._taskService.storeUs(user)
   }
   ngOnInit() {
+    this.myFunction()
   }
 
 }

@@ -1,13 +1,23 @@
-<h1>Add Player</h1>
+<h1>New question</h1>
 <form name='myFrom' (submit)= "onSubmit()" #myForm="ngForm">
-	Player Name: <input type="text" name="name" required 
-    minlength="8" 
-    maxlength="24"
-     [(ngModel)]="user.name" #name='ngModel'><strong *ngIf='name.invalid && ( name.dirty || name.touched)'><span style="color: red">  *Name should be at least 8 characters in length</span></strong><br>
-    Preffered Position: <input type="text" name="position" required 
+	Question: <input type="text" name="question" required 
     minlength="2" 
+     [(ngModel)]="quest.question" #question='ngModel'><strong *ngIf='question.invalid && ( question.dirty || question.touched)'><span style="color: red">  *Question should be at least 8 characters in length</span></strong><br>
+
+    Correct answer: <input type="text" name="correct" required 
+    minlength="1" 
     maxlength="24"
-     [(ngModel)]="user.position" #position='ngModel'><strong *ngIf='position.invalid && ( position.dirty || position.touched)'><span style="color: red">  Position is needed</span></strong><br>
+     [(ngModel)]="quest.correct" #correct='ngModel'><strong *ngIf='correct.invalid && ( correct.dirty || correct.touched)'><span style="color: red">  Answer is needed</span></strong><br>
+
+     Fake answer 1: <input type="text" name="fake1" required 
+    minlength="1" 
+    maxlength="24"
+     [(ngModel)]="quest.fake1" #fake1='ngModel'><strong *ngIf='fake1.invalid && ( fake1.dirty || fake1.touched)'><span style="color: red">  Answer is needed</span></strong><br>
+
+     Fake answer 2: <input type="text" name="fake2" required 
+    minlength="1" 
+    maxlength="24"
+     [(ngModel)]="quest.fake2" #fake2='ngModel'><strong *ngIf='fake2.invalid && ( fake2.dirty || fake2.touched)'><span style="color: red">  Answer is needed</span></strong><br>
 	
-	<br><input type="submit" name="submit" value="Add" [disabled]="myForm.invalid">
+	<br><input type="submit" name="submit" value="Add Question" [disabled]="myForm.invalid">
 </form>

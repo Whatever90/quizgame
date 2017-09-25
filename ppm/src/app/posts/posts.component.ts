@@ -12,13 +12,13 @@ import { Anonpost } from "./../anonpost";
 export class PostsComponent implements OnInit {
 	users = []
   constructor(private _taskService: TaskService) { 
-  	this.showAll()
+  	// this.showAll()
   }
-  showAll(){
-  	this._taskService.show(function(data){
-	 		this.users = data
-  	}.bind(this))
-  }
+  // showAll(){
+  // 	this._taskService.show(function(data){
+	 // 		this.users = data
+  // 	}.bind(this))
+  // }
 
   ngOnInit() {
 

@@ -1,0 +1,22 @@
+<form name='myForm' (submit)= "onSubmit()" #myForm="ngForm">
+	<div *ngFor="let x of threequest; let ind=index">
+	  {{ind}}. {{x.question}} 
+
+	  		<label>
+                 <input type="radio" name="ans_{{ind}}" ng-value="x.correct" (click)='answer1(ind, x.correct, x._id)'>
+                   {{x.correct}}
+          </label>
+          <label>
+                 <input type="radio" name="ans_{{ind}}" ng-value="x.fake1" (click)='answer1(ind, x.fake1, x._id)'>
+                   {{x.fake1}}
+          </label>
+          <label>
+                 <input type="radio" name="ans_{{ind}}" ng-value="x.fake2" (click)='answer1(ind, x.fake2, x._id)'>
+                   {{x.fake2}} 
+          </label>
+	  </div>
+	  <input type="submit">
+</form>
+	
+	
+

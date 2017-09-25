@@ -19,6 +19,7 @@ import { ProductNewComponent } from './products/product-new/product-new.componen
 import { ProductMylistComponent } from './products/product-mylist/product-mylist.component';
 
 import { ProductsAllComponent } from './products/products-all/products-all.component';
+import { HomeGameComponent } from './home/home-game/home-game.component';
 // import { Routes, RouterModule } from '@angular/router';
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ProductsAllComponent } from './products/products-all/products-all.compo
     HomeNewComponent,
     ProductNewComponent,
     ProductMylistComponent,
-    ProductsAllComponent
+    ProductsAllComponent,
+    HomeGameComponent
   ],
   imports: [
     BrowserModule,

@@ -7,9 +7,10 @@ var bcrypt = require('bcryptjs')
 var User = mongoose.model('User');
 //console.log(User)
 let currentuser;
+let lastscores;
 module.exports = {
    showAll: function(req, res){
-    User.find({})
+    User.find({game: 'belt'})
         .sort("-score")
             .then(data => {
                 res.json(data);
@@ -22,9 +23,9 @@ module.exports = {
 create: function(req, res) {
 
         console.log("++++++++++++++++++++++++++++++++++++")
-        console.log(req.body.first_name)
+        console.log(req.body)
         console.log('+++++++++++++++++++')
-        User.findOne({email: req.body.email})
+        User.findOne({name: req.body.user})
           .then(data => {
             if(data) {
                 console.log(data)
@@ -33,10 +34,9 @@ create: function(req, res) {
             } else {
               console.log('creating')
               var user = new User({
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                email: req.body.email,
-                password: req.body.password
+                name: req.body.user,
+                score: 0,
+                game: 'belt'
               });
           user.save()
             .then(saved => {
@@ -53,22 +53,17 @@ create: function(req, res) {
 login: function(req, res) {
 
         console.log("++++++++++++++++++++++++++++++++++++")
-        console.log(req.body.first_name)
+        console.log(req.body.user)
         console.log('+++++++++++++++++++')
-        User.findOne({email: req.body.email})
+        User.findOne({name: req.body.user})
           .then(data => {
             if(data) {
                 console.log(data)
-                if(data.password == req.body.password){
-                  console.log("password match!")
-                  res.json(data)
-                }else{
-                  console.log("password doesn't match")
-                  res.json(false)
-                }
+                console.log("user found!")
+                res.json(data)
                 
             } else {
-                console.log('no such email in db')
+                console.log('no such user in db')
                 res.json(false)
             }
           })
@@ -83,6 +78,15 @@ contact: function(req, res){
                 console.log(err);
             });
   },
+lastscoreadd: function(req, res){
+  this.lastgame[req.body.id] = req.body.score
+  res.json(this.lastgame)
+},
+lastscoreshow: function(req, res){
+  console.log(req.body._id)
+  console.log(this.lastgame[req.body._id])
+  res.json(this.lastgame)
+},
 store: function(req, res){
   console.log('we r in users.js controller', req.body._id)
   this.currentuser = req.body
@@ -98,6 +102,22 @@ logout: function(req, res){
   this.currentuser = null
   res.json(this.currentuser)
 },
+
+ score: function(req, res){
+
+  console.log('adding points to ',req.body.id)
+  console.log('here')
+  User.update({_id: req.body.id}, {$set: {score: req.body.score}}, function(err, data){
+    if(err){
+      console.log('failed to add score')
+      res.json(err);
+      }else{
+      console.log("score added")
+      res.json(data);
+    }
+  })
+      
+  }, 
   // })
           // User.update({login: req.body.login}, {$set: {score: req.body.score}}, function(err, data){
           //   if(err){

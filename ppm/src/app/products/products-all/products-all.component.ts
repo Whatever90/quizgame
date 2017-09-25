@@ -11,6 +11,7 @@ import { TaskService } from './../../task.service';
 export class ProductsAllComponent implements OnInit {
 products = []
 user;
+contactcard;
   constructor(private _taskService: TaskService, private _r: Router) {
     
     this.checkUser()
@@ -54,17 +55,24 @@ user;
     this._taskService.getUser(seller, function(user, data){
       console.log('this is err', user)
       console.log('this is data', data)
-      if(user){
+      if(user){ 
+
         alert(`Name: ${user[0].first_name}; Email: ${user[0].email}`)
       }
       if(data){
         console.log(data)
       }
-    })
+    }.bind(this))
   }
-  deleteProduct(id){
-    console.log(id)
-    this._taskService.deleteProduct(id)
+  deleteProduct(id, title){
+    var r = confirm(`Delete ${title}?`);
+    if (r == true) {
+      console.log(`deleting ${title} with id: ${id}`)
+       this._taskService.deleteProduct(id)
+       this.showAll()
+    } else {
+        console.log('no');
+    }
     this.showAll()
   }
   ngOnInit() {
