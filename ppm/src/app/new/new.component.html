@@ -1,0 +1,42 @@
+<div id="main">
+	<div class='box'>
+		<div class='userbox' *ngIf='!u1 || !u1.login'>
+			<h1>Add Player#1</h1>
+
+			<form name='myFrom1' (submit)= "onSubmit1()" #myForm1="ngForm">
+			    GitHub Username: <input type="text" name="name1" required 
+			    minlength="3" 
+			    maxlength="24"
+			     [(ngModel)]="user1.name" #name1='ngModel'><strong *ngIf='name1.invalid && ( name1.dirty || name1.touched)'><span style="color: red">  *Name must be at least 8 characters in length</span></strong><br>
+			    
+			    <br><input type="submit" name="submit" style="background-color: blue; color: white" value="Get User#1" [disabled]="myForm1.invalid">
+			</form>
+		</div>
+		<div class="userbox" *ngIf='u1 && u1.login'>
+			<img src="{{u1.avatar_url}}">
+			<h4>{{u1.login}}</h4>
+		</div>
+	</div>
+
+	<div class='box'>
+		<div class='userbox' *ngIf='!u2 || !u2.login'>
+			<h1>Add Player#2</h1>
+			<form name='myFrom2' (submit)= "onSubmit2()" #myForm2="ngForm">
+			    GitHub Username: <input type="text" name="name2" required 
+			    minlength="3" 
+			    maxlength="24"
+			     [(ngModel)]="user2.name" #name2='ngModel'><strong *ngIf='name2.invalid && ( name2.dirty || name2.touched)'><span style="color: red">  *Name must be at least 8 characters in length</span></strong><br>
+			    
+			    <br><input type="submit" name="submit" style="background-color: blue; color: white" value="Get User#2" [disabled]="myForm2.invalid">
+			</form>
+		</div>
+		<div class="userbox" *ngIf='u2 && u2.login'>
+			<img src="{{u2.avatar_url}}">
+			<h4>{{u2.login}}</h4>
+		</div>
+	</div>
+	
+</div>
+<div *ngIf='u2 && u2.login && u1 && u1.login'>
+		<button (click)='battle()'>BATTLE</button>
+	</div>

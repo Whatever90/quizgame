@@ -1,0 +1,11 @@
+#body{
+	background-color: azure;
+	margin: auto 20px;
+	height: 300px;
+	border: 1px solid silver
+}
+#main {
+	margin: auto 20px;
+	margin-bottom: 50px;
+	padding: 10px auto;
+}

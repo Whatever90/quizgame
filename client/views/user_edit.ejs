@@ -1,0 +1,20 @@
+<html>
+<body>
+<div>
+    <h2>Edit <%= user[0].name %>'s Infromation</h2>
+
+</div>
+<form action="/users/<%= user[0].id %>" method="POST">
+    	<br>Name<input type="text" name="name">
+    	<br>Age<input type="text" name="age">
+    	<button type="submit" >Send</button>
+    </form>
+<form action="/" method="get">
+  <button type="submit">Back</button>
+</form>
+<a href="/users/destroy/<%= user[0].id %>">SEND TO GULAG</a>
+<% if(typeof(errors) != 'undefined' ) { %>
+     <h3><%= errors %></h3>
+ <% } %>
+</body>
+</html>

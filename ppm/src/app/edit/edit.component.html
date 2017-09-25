@@ -1,0 +1,12 @@
+<h1>Edit Product</h1>
+<form name='myFrom' (submit)= "onSubmit()" #myForm="ngForm">
+	Name: <input type="text" name="name" required 
+    minlength="2" 
+    maxlength="24" [(ngModel)]="prod.name" #name='ngModel'><strong *ngIf= 'name.invalid && ( name.dirty || name.touched)'><span style="color: red">  What's wrong with you?</span></strong><br>
+	Price: <input type="text" name="price" required 
+    minlength="1"
+    pattern="^[0-9]+.[0-9]{0,2}$" 
+    maxlength="7" [(ngModel)]="prod.price" #price='ngModel'><strong *ngIf='price.invalid && ( price.dirty || price.touched)'><span style="color: red">  Numbers, Mason, numbers!!!</span></strong>
+	<br><input type="submit" name="submit" value="Change" [disabled]="myForm.invalid">
+</form>
+<a [routerLink]="['products']" (click)='delete()'>Delete</a>

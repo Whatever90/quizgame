@@ -1,0 +1,13 @@
+<html>
+<body>
+ <% if(typeof(errors) != 'undefined' ) { %>
+     <h3><%= title %></h3>
+     <h3><%= errors %></h3>
+ <% } %>
+    <form action="/users" method="POST">
+    	<br>Name<input type="text" name="name">
+    	<br>Age<input type="text" name="age">
+    	<button type="submit" >Send</button>
+    </form>
+</body>
+</html>

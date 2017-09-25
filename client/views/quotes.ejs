@@ -1,0 +1,22 @@
+<html>
+<script type="text/javascript">
+	
+
+</script>
+<body>
+<div>
+<h2>Submitted Quotes</h2>
+  <% if(typeof(quotes) != 'undefined' ) { %>
+     <% for (var x= quotes.length-1; x>=0; x--) { %>
+      <div class='line' style="border-bottom: black 1px solid; width: 550px"><li><%= JSON.stringify(quotes[x].quote) %></li><h4><%= quotes[x].name %></h4> <p><%= quotes[x].updatedAt %></p></div>
+     <% } %>
+ <% } %>
+
+</div>
+<form action="/" method="get">
+  <button type="submit">Back</button>
+
+</body>
+</html>
+
+  

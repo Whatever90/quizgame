@@ -1,0 +1,22 @@
+<div id='all'>
+	<div  *ngFor='let x of products; let idx = index'>
+	<div class='probox' *ngIf='x.seller'>
+		<div id='left'>
+		<img src='{{x.image}}' width='200'>
+		</div>
+		<div id='right'>
+		<h3>Title: {{x.title}} </h3>
+		<h5>Description: {{x.description}}</h5>
+		<h5>Price: ${{x.price}}</h5>
+		<h5>Location: {{x.location}}</h5>
+		<div *ngIf='x.seller !=user._id'>
+			<button (click)='contact(x.seller)'>Contact seller</button>
+		</div>
+		<div *ngIf='x.seller==user._id'>
+			<button (click)='deleteProduct(x._id)'>Delete Product</button>
+		</div>
+		</div>
+	</div>
+
+	</div>
+</div>

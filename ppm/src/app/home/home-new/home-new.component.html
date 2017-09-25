@@ -1,0 +1,13 @@
+<h1>Add Player</h1>
+<form name='myFrom' (submit)= "onSubmit()" #myForm="ngForm">
+	Player Name: <input type="text" name="name" required 
+    minlength="8" 
+    maxlength="24"
+     [(ngModel)]="user.name" #name='ngModel'><strong *ngIf='name.invalid && ( name.dirty || name.touched)'><span style="color: red">  *Name should be at least 8 characters in length</span></strong><br>
+    Preffered Position: <input type="text" name="position" required 
+    minlength="2" 
+    maxlength="24"
+     [(ngModel)]="user.position" #position='ngModel'><strong *ngIf='position.invalid && ( position.dirty || position.touched)'><span style="color: red">  Position is needed</span></strong><br>
+	
+	<br><input type="submit" name="submit" value="Add" [disabled]="myForm.invalid">
+</form>

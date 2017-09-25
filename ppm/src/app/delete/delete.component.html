@@ -1,0 +1,8 @@
+<h1>Game 3 Status</h1>
+<div *ngFor='let x of users; let ind = index'>
+<span *ngIf='x.position && x.game1 && x.game2 && x.game3'>
+	<span style="color: red">Name:</span> {{x.name}}
+	<button (click)="status('ready', x._id)" [ngStyle]="{'background-color': colorchange1(x.game3)}">Ready</button>
+<button (click)="status('notready', x._id)" [ngStyle]="{'background-color': colorchange2(x.game3)}">Not Ready</button>
+<button (click)="status('undecided', x._id)" [ngStyle]="{'background-color': colorchange3(x.game3)}" default>Undecided</button></span>
+</div>

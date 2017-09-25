@@ -1,0 +1,10 @@
+<h1>Ranks</h1>
+<div  *ngFor='let x of users'>
+	<div  *ngIf='x.score'>
+	<div class="userBox">
+		<img src="{{x.photo}}">
+		<p>{{x.login}} {{x.score}}</p>
+		</div>
+	</div>
+	
+</div>

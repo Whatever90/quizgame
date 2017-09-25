@@ -1,0 +1,133 @@
+<div id='create'>
+	<div *ngIf='user'>
+	<form NAME='myForm2' (submit)= "newProduct()" #myForm2="ngForm">
+        <h3>Title: <input class='inbox'
+          type="text"
+          minlength="5" 
+          maxlength="24" 
+          name="title" 
+          [(ngModel)]="product.title"
+          #title='ngModel'>
+          <strong *ngIf='title.invalid && ( title.dirty || title.touched)'><span style="color: red">   Uphold Email format</span></strong><strong *ngIf='title.valid && ( title.dirty || title.touched)'><span style="color: green">   Looks good!</span></strong>
+        </h3>
+        <h3>Description: <input class='inbox' 
+          type="text" 
+          required 
+          minlength="5" 
+          maxlength="100"
+          rows="4" 
+          cols="50" 
+          name="description" 
+          [(ngModel)]="product.description"
+          #description='ngModel'>
+           <strong *ngIf='description.invalid && ( description.dirty || description.touched)'><span style="color: red">   Uphold Email format</span></strong><strong *ngIf='description.valid && ( description.dirty || description.touched)'><span style="color: green">   Looks good!</span></strong>
+        </h3>
+        <h3>Price: <input class='inbox' 
+          type="text" 
+          required 
+          minlength="1" 
+    	  maxlength="7"
+    	  pattern="^[0-9]+.[0-9]{0,2}$" 
+          name="price" 
+          [(ngModel)]="product.price"
+          #price='ngModel'>
+           <strong *ngIf='price.invalid && ( price.dirty || price.touched)'><span style="color: red">   Numbers, Mason, numbers!!!</span></strong><strong *ngIf='price.valid && ( price.dirty || price.touched)'><span style="color: green">   Looks good!</span></strong>
+        	
+        </h3>
+        <input type="text" name="seller" value="{{user._id}}" style="display: none;" 
+        [(ngModel)]="product.seller" #seller='ngModel'>
+
+        <h3>Location: 
+        <input class='inbox' 
+          type="text" 
+          required 
+          minlength="2" 
+          maxlength="15"
+          name="location" 
+          [(ngModel)]="product.location"
+          #location='ngModel'>
+           <strong *ngIf='location.invalid && ( location.dirty || location.touched)'><span style="color: red">   Location is needed</span></strong><strong *ngIf='location.valid && ( location.dirty || location.touched)'><span style="color: green">   Looks good!</span></strong>
+        </h3>
+        <h3>Image URL link: 
+        <input class='inbox' 
+          type="text" 
+          required 
+          minlength="2" 
+          name="image" 
+          [(ngModel)]="product.image"
+          #image='ngModel'>
+           <strong *ngIf='image.invalid && ( image.dirty || image.touched)'><span style="color: red">   URL is needed</span></strong><strong *ngIf='image.valid && ( image.dirty || image.touched)'><span style="color: green">   Looks good!</span></strong>
+        </h3>
+
+      <input type="submit" value="Login" [disabled]="myForm2.invalid">
+    </form>
+    </div>
+</div>
+<div id='mylist'>
+	<div class='probox' *ngFor='let x of products'>
+	<img src='{{x.image}}' width='100'>
+
+	<form name='updateForm' #updateForm="ngForm">
+			
+			<h3>Title: <input class='inbox'
+			ng-value="Doe"
+          	type="text"
+          	minlength="5" 
+          	maxlength="24" 
+          	name="up_title"
+          	[(ngModel)]="x.title"
+          	#up_title='ngModel'></h3>
+
+         <h3>Description: <input class='inbox' 
+	          type="text" 
+	          required 
+	          minlength="5" 
+	          maxlength="100"
+	          rows="4" 
+	          cols="50" 
+	          name="up_description" 
+	          [(ngModel)]="x.description"
+	          #up_description='ngModel'>
+	           <strong *ngIf='up_description.invalid && ( up_description.dirty || up_description.touched)'><span style="color: red">   Uphold Email format</span></strong><strong *ngIf='up_description.valid && ( up_description.dirty || up_description.touched)'><span style="color: green">   Looks good!</span></strong>
+        </h3>
+        <h3>Price: <input class='inbox' 
+	          type="text" 
+	          required 
+	          minlength="1" 
+	    	  maxlength="7"
+	    	  pattern="^[0-9]+.[0-9]{0,2}$" 
+	          name="up_price" 
+	          [(ngModel)]="x.price"
+	          #up_price='ngModel'>
+	           <strong *ngIf='up_price.invalid && ( up_price.dirty || up_price.touched)'><span style="color: red">   Numbers, Mason, numbers!!!</span></strong><strong *ngIf='up_price.valid && ( up_price.dirty || up_price.touched)'><span style="color: green">   Looks good!</span></strong>
+        </h3>
+        <h3>Location: 
+	        <input class='inbox' 
+	          type="text" 
+	          required 
+	          minlength="2" 
+	          maxlength="15"
+	          name="up_location" 
+	          [(ngModel)]="x.location"
+	          #up_location='ngModel'>
+	           <strong *ngIf='up_location.invalid && ( up_location.dirty || up_location.touched)'><span style="color: red">   Location is needed</span></strong><strong *ngIf='up_location.valid && ( up_location.dirty || up_location.touched)'><span style="color: green">   Looks good!</span></strong>
+        </h3>
+
+        <h3>Image URL link: 
+	        <input class='inbox' 
+	          type="text" 
+	          required 
+	          minlength="2" 
+	          name="up_image" 
+	          [(ngModel)]="x.image"
+	          #up_image='ngModel'>
+	           <strong *ngIf='up_image.invalid && ( up_image.dirty || up_image.touched)'><span style="color: red">   URL is needed</span></strong><strong *ngIf='up_image.valid && ( up_image.dirty || up_image.touched)'><span style="color: green">   Looks good!</span></strong>
+        </h3>
+        	<button (click)='update(x._id, updateForm)' [disabled]="updateForm.invalid">Update</button>
+
+    </form>
+			<button (click)='deleteProduct(x._id)'>Delete</button>
+	</div>
+
+	
+</div>

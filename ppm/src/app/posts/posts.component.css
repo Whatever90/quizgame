@@ -1,0 +1,9 @@
+.userBox{
+	border: gold 3px solid;
+	width: 800px;
+	height: 500px;
+	background-color: azure;
+	align-items: center;
+	display:  flex;
+
+}
