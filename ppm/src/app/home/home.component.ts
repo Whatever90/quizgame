@@ -5,7 +5,6 @@ import { TaskService } from '../task.service';
 import { HomeListComponent } from './home-list/home-list.component';
 import { HomeNewComponent } from './home-new/home-new.component';
 import { User } from './../user';
-import { LoginUser } from './../loginUser';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,83 +12,65 @@ import { LoginUser } from './../loginUser';
 })
 export class HomeComponent implements OnInit {
 	 users = [];
-  user;
-  loginUser = new LoginUser()
   error;
   errormessage;
   products;
   product;
   length;
-
+  user = new User();
   constructor(private _taskService: TaskService, private _r: Router, ) { 
     //this.showAllUsers()
   }
-myFunction() {
-    var person = prompt(`Login`)
-    if (person.length>1) {
-        console.log('hello', person)
-        this.user = person
-        this.onSubmit1()
-    }else{
-      this.myFunction()
-    }
-}
-
-  showAllUsers(){
-     console.log('lets show all users!')
-    this._taskService.showAll(function(err, data){
-      console.log(data)
-      console.log('----------------------')
-      console.log(err)
-      if(err){
-        console.log('somehow true statement is ERROR, lol')
-        console.log(err)
-        this.users = err
-      }
+   showUser(){
+    this._taskService.showUser(function(data, user){
+      console.log('this is user', user)
+      console.log('this is data', data)
       if(data){
-        console.log('data!!!!!')
-        this.users = data
+        console.log(data)
+        this.user = data
+        this._r.navigateByUrl('/dashboard')
+      }else if(data == undefined){
+        this._r.navigateByUrl('/')
       }
+      
     }.bind(this))
   }
-  // showOne(){
-  //   this.showAll()
-  //   this.length = 1
-  //   console.log('=====================')
-  //   console.log(this.products)
-  //   console.log('=====================')
-  //   // var x = Math.floor(Math.random()*length)
-  //   // this.product = this.product[x]
 
-  // }
-  onSubmit1(){
-      console.log(this.user)
+
+  onSubmit(){
+    console.log(this.user)
+    const person = this.user
+      
       this._taskService.create(this.user, function(data, user){
+        console.log('onSubmit(): data =>',data)
+        console.log('onSubmit(): user =>',user)
         if(!data){
-          console.log('something wrong')
-          alert(`Welcome back, ${this.user}!`)
-          this.login(this.user)
+          console.log('something wrong. going to login')
+          console.log('homeComp onSubmit(): if(!data)',person)
+          this.login(person)
         }
         if(data){
           console.log('exellent!')
           console.log(data)
           this.storeUser(data)
-          this._r.navigateByUrl('/main')
+          this.user = new User();
+          this._r.navigateByUrl('/dashboard')
         }
       }.bind(this))
     
   }
   login(loginUser){
+    console.log('homeComp login(): loginuser =>', loginUser)
     this._taskService.login(loginUser, function(data){
       console.log(data)
       if(!data){
         console.log('failed to login')
-        this.myFunction()
       }
       if(data){
         this.storeUser(data)
         console.log('logining was successful!')
-        this._r.navigateByUrl('/main')
+        this.user = new User();
+        this._r.navigateByUrl('/dashboard')
       }
     }.bind(this))
   }
@@ -98,7 +79,7 @@ myFunction() {
     this._taskService.storeUs(user)
   }
   ngOnInit() {
-    this.myFunction()
+    this.showUser()
   }
 
 }

@@ -11,14 +11,15 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class AppComponent {
   title = 'app';
-  posts= []
-  post = new Anonpost();
-	list;
-	errors = []
+  errors = []
 	check = [];
-  	constructor(private _taskService: TaskService) {
+  	constructor(private _taskService: TaskService, private _r: Router) {
 
 };
+logout(){
+  this._taskService.logout()
+  this._r.navigateByUrl('/')
+}
 onSubmit(){
 	};
 showAll(){

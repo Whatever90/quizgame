@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 //var Quote = mongoose.model('Quote');
 var user = require('./../controllers/users.js');
-var product = require('./../controllers/products.js')
-var question = require('./../controllers/questions.js')
+var option = require('./../controllers/options.js')
+var poll = require('./../controllers/polls.js')
 var session = require('express-session');
 // original code:
 var express = require('express')
@@ -17,10 +17,32 @@ app.post('/users/all', (req, res, next)=>{
 	console.log("let's show all players!")
   	user.showAll(req, res)
     });
-app.post('/questions/new', (req, res, next)=>{
-  console.log("routes: new question")
-    question.create(req, res)
+app.post('/polls/new', (req, res, next)=>{
+  console.log("routes: new poll")
+    poll.create(req, res)
     })
+app.post('/polls/all', (req, res, next)=>{
+  console.log("routes: all polls")
+    poll.showAll(req, res)
+    })
+
+app.post('/polls/givemeone', (req, res, next)=>{
+  console.log("routes: /polls/givemeone")
+    poll.givemeone(req, res)
+    })
+app.post('/polls/votepoll', (req, res, next)=>{
+  console.log("routes: /polls/votepoll")
+    poll.votepoll(req, res)
+    })
+app.post('/polls/deletepoll', (req, res, next)=>{
+  console.log("routes: /polls/deletepoll", req.body)
+    poll.deletepoll(req, res)
+    })
+
+
+
+
+
 app.post('/questions/all', (req, res, next)=>{
   console.log("routes: let's show all questions!")
     question.showAll(req, res)
@@ -31,7 +53,7 @@ app.post('/questions/answers', (req, res, next)=>{
     });
 
 app.post('/user/score', (req, res, next)=>{
-  console.log("let's show all players!")
+  console.log("let's chenge the score players!")
     user.score(req, res)
     });
 app.post('/user/lastscoreadd', (req, res, next)=>{

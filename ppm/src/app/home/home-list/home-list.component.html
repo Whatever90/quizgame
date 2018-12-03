@@ -1,4 +1,20 @@
-<button (click)='game()'>START THE BRAIN-GAME</button>
-<div *ngFor='let x of users'>
-  <p>{{x.name}} {{x.score}}</p>
-</div>
+<h1 *ngIf='user'>
+	Hello, {{user.name}}
+</h1>
+<a [routerLink]="['/create']">Create a new Poll</a>
+<button (click)='logout()'>Logout</button>
+<form>
+  Search: <input type="text" name="search" [(ngModel)]="query.title">
+</form>
+
+<table>
+	<tr>
+    <th>Name</th>
+    <th>Question</th>
+    <th>Date Posted</th>
+    <th>Action</th>
+  </tr>
+<tr *ngFor='let x of polls | filterBy: query'>
+  <td>{{x.creater_name}}</td> <td><a [routerLink]="['/poll', x._id]">{{x.title}}</a></td> <td>{{x.createdAt| date:'mediumDate'}}</td> <td><span *ngIf='x.creater_id==user._id'><button (click)='delete(x._id)'>Delete</button></span></td>
+</tr>
+</table>

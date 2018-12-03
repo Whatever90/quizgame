@@ -19,9 +19,9 @@ const routes: Routes = [
 	// 	{path: 'all', component: ProductsAllComponent },
 	// 	{path: 'listings', component: ProductMylistComponent}
 	// ]},
-	{ path: 'main', component: HomeListComponent },
-	{ path: '#new_question', component: HomeNewComponent },
-	{ path: 'lets_play', component: HomeGameComponent },
+	{ path: 'dashboard', component: HomeListComponent },
+	{ path: 'create', component: HomeNewComponent },
+	{ path: 'poll/:id', component: HomeGameComponent },
 	// { path: 'players/addplayer', component: HomeNewComponent },
 	// { path: 'players/delete/:id', component: HomeNewComponent },
 	

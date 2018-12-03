@@ -13,88 +13,63 @@ import { HomeComponent } from './../home.component'
   styleUrls: ['./home-game.component.css']
 })
 export class HomeGameComponent implements OnInit {
-questions;
-threequest = [];
-answer = new Answer()
-question1;
-question2;
-question3;
+
 temp = []
 user;
 score = 0;
 send;
 send2;
+id;
+poll= {
+	name: ' '
+};
+poll_id;
+option_votes;
   constructor(private _route: ActivatedRoute, private _taskService: TaskService, private _r: Router) { 
-		this.allQuestions()
-		this.showUser()
+		
 	}; 
-
-	allQuestions(){
-		this._taskService.allQuestions(function(err, data){
-      
-      if(err){
-        this.questions = err
-        this.threequestions()
-      }
-      if(data){
-        console.log('data!!!!!')
-        this.questions = data
-      }
-    }.bind(this))
+	getPoll(id){
+		this._taskService.getPoll(id, function(data, user){
+		      console.log('this is user', user)
+		      console.log('this is data', data)
+		      this.poll = data
+		      this.poll_id = this.poll._id
+    	}.bind(this))
 	}
-	threequestions(){
-		for(let i = 0; i <3; i++){
-			this.threequest.push(this.questions[i])
+	votefor(voting, amount){
+		let send = {
+			voting: voting,
+			id: this.poll_id,
+			amount: amount + 1
 		}
-		this.threequest = this.shuffle(this.threequest)
-		console.log('got 3 q', this.threequest)
-	}
-	shuffle(a) {
-	    for (let i = a.length; i; i--) {
-	        let j = Math.floor(Math.random() * i);
-	        [a[i - 1], a[j]] = [a[j], a[i - 1]];
-	    }
-	    return a
+		
+		console.log(send)
+
+		this._taskService.votePoll(send, function(data, user){
+		      console.log('this is user', user)
+		      console.log('this is data', data)
+		      if(data){
+		      	this.getPoll(this.id)
+		      }
+    	}.bind(this))
 	}
 	showUser(){
-		this._taskService.showUser(function(data, user){
-			console.log('this is user', user)
-			console.log('this is data', data)
-			this.user = data
-		}.bind(this))
-	}
-	onSubmit(){
-		this.answer = {
-			ans_0: this.temp[0],
-			ans_1: this.temp[1],
-			ans_2: this.temp[2],
-			id: this.temp[4],
-			user: this.user._id
-		}
-		for(let i = 0; i <3; i++){
-			if(this.threequest[i].correct==this.temp[i]){
-				this.score++
-			}
-		}
-		this.send = {
-			score: this.score + this.user.score,
-			id: this.user._id
-		}
-		this.send2 = {
-			score: this.score,
-			id: this.user._id
-		}
-		//console.log(this.answer)
-		this._taskService.addScore(this.send, this.send2)
-		this._r.navigateByUrl('main')
-	}
-	answer1(ind, ans, id){
-		console.log(ind, ans, id)
-		this.temp[ind] = ans
-		this.temp[3] = id
-		console.log(this.temp)
-	}
+    this._taskService.showUser(function(data, user){
+      console.log('this is user', user)
+      console.log('this is data', data)
+      if(!data){
+        this._r.navigateByUrl('/')
+      }
+      this.user = data
+    }.bind(this))
+  }
+	
   ngOnInit() {
+  	this._route.paramMap.subscribe( params => {
+       	       console.log(params.get('id'));
+       	       this.id = params.get('id')
+       	       })
+		this.getPoll(this.id)
   }
 
 }

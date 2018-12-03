@@ -1,22 +1,26 @@
-<form name='myForm' (submit)= "onSubmit()" #myForm="ngForm">
-	<div *ngFor="let x of threequest; let ind=index">
-	  {{ind}}. {{x.question}} 
+<a [routerLink]="['/dashboard']">Go to Polls</a>
 
-	  		<label>
-                 <input type="radio" name="ans_{{ind}}" ng-value="x.correct" (click)='answer1(ind, x.correct, x._id)'>
-                   {{x.correct}}
-          </label>
-          <label>
-                 <input type="radio" name="ans_{{ind}}" ng-value="x.fake1" (click)='answer1(ind, x.fake1, x._id)'>
-                   {{x.fake1}}
-          </label>
-          <label>
-                 <input type="radio" name="ans_{{ind}}" ng-value="x.fake2" (click)='answer1(ind, x.fake2, x._id)'>
-                   {{x.fake2}} 
-          </label>
-	  </div>
-	  <input type="submit">
-</form>
+<h2 *ngIf='poll.title'>{{poll.title}}</h2>
+<h4>Click the Vote button to choose one</h4>
+<table>
+  <tr>
+    <th>Option</th>
+    <th>Current Count of Votes</th>
+    <th>Action</th>
+  </tr>
+<tr>
+  <td>{{poll.option1}}</td> <td>{{poll.option1_votes}}</td> <td><button (click)='votefor("option1_votes", poll.option1_votes)'>Vote</button></td>
+</tr>
+<tr>
+  <td>{{poll.option2}}</td> <td>{{poll.option2_votes}}</td> <td><button (click)='votefor("option2_votes", poll.option2_votes)'>Vote</button></td>
+</tr>
+<tr>
+  <td>{{poll.option3}}</td> <td>{{poll.option3_votes}}</td> <td><button (click)='votefor("option3_votes", poll.option3_votes)'>Vote</button></td>
+</tr>
+<tr>
+  <td>{{poll.option4}}</td> <td>{{poll.option4_votes}}</td> <td><button (click)='votefor("option4_votes", poll.option4_votes)'>Vote</button></td>
+</tr>
+</table>
 	
 	
 

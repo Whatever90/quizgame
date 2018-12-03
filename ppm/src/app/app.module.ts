@@ -20,6 +20,8 @@ import { ProductMylistComponent } from './products/product-mylist/product-mylist
 
 import { ProductsAllComponent } from './products/products-all/products-all.component';
 import { HomeGameComponent } from './home/home-game/home-game.component';
+
+import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
 // import { Routes, RouterModule } from '@angular/router';
 
 @NgModule({
@@ -42,9 +44,10 @@ import { HomeGameComponent } from './home/home-game/home-game.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    Ng2FilterPipeModule
   ],
-  providers: [TaskService],
+  providers: [TaskService, HomeListComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

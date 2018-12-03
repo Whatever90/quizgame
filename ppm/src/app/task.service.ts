@@ -15,6 +15,7 @@ export class TaskService {
 	posts = [];
   answers;
   lastgame;
+  id;
    constructor(private _r: Router, private _http: Http) {
 
    };
@@ -23,34 +24,87 @@ export class TaskService {
      .map(data => data)
      .subscribe(data=> callback(data))
    }
-   addScore(send, lastscore){
-     this.lastscoreadd(lastscore)
-
+   /////////////////////////////-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+   addScore(send){
+     
      this._http.post('/user/score', send).subscribe(
          (data) => data = data.json(),
          (err) => console.log(err)
       )
    }
+   //////////////////////////////-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
    lastscoreadd(last){
      this._http.post('/user/lastscoreadd', last).subscribe(
          (data) => data = data.json(),
          (err) => console.log(err)
       )
-   }
-   newQuest(question){
-      console.log('taskservice: creating a new question')
-      console.log(question)
-      this._http.post('/questions/new', question).subscribe(
+   }/////////////////////////////DON'T NEED LASTSCORE FUNCTION
+   newPoll(poll){
+      console.log('taskservice: creating a new poll')
+      console.log(poll)
+      this._http.post('/polls/new', poll).subscribe(
          (data) => data = data.json(),
          (err) => console.log(err)
       )
    }
+
    
-   allQuestions(callback){
-     this._http.post('/questions/all', 'lol')
+   pollsShowAll(callback){
+     this._http.post('/polls/all', 'lol')
      .map(data => data.json())
      .subscribe(data=> callback(data))
    }
+   getPoll(id, callback){
+     this.id = {
+       id:id
+     }
+     console.log('taskService getPoll(): this.id =>', this.id)
+     this._http.post('/polls/givemeone', this.id)
+     .map(data => data.json())
+     .subscribe(data=> callback(data))
+   }
+   votePoll(vote, callback){
+     
+     console.log('taskService votePoll(): vote =>', vote)
+     this._http.post('/polls/votepoll', vote)
+     .map(data => data.json())
+     .subscribe(data=> callback(data))
+   }
+   deletePoll(id){
+       let key = {
+         id: id
+       }
+       console.log(key)
+     this._http.post('/polls/deletepoll', key)
+       .map(data => data.json())
+       .subscribe(data=> console.log(data))
+   }
+
+//////////////////////////////////////////////////////////////////////////////   
+   allQuestions(callback){
+     this._http.post('/questions/all', 'lol')
+     .map(data => data.json())
+     .subscribe(data=> callback(this.threequestions(this.shuffle(data))))
+   }
+    shuffle(a) {
+      for (let i = a.length; i; i--) {
+          let j = Math.floor(Math.random() * i);
+          [a[i - 1], a[j]] = [a[j], a[i - 1]];
+      }
+      return a
+    }
+  threequestions(questions){
+    let threequest = []
+    for(let i = 0; i <3; i++){
+      threequest.push(questions[i])
+    }
+    console.log('taskservice threequestions returns =>', threequest)
+    return threequest
+  }
+
+
+
+///////////////////////////////////////////////////////////////////////////////
    showAll(callback){
      this._http.post('/users/all', 'lol')
      .map(data => data.json())
@@ -58,13 +112,15 @@ export class TaskService {
    }
    create(user, callback){
      console.log('craeting user =>', user)
-       this.user = {
-         user: user
-       }
-      console.log('second step of craeting')
-      this._http.post("/user/new", this.user)
-        .map(data => data.json() ) //
-        .subscribe(data => callback(data))
+    this._http.post("/user/new", user).subscribe(
+          (data) => callback(data.json()), 
+          (err) => console.log('taskservice create(): err =>', err.json()),
+          //callback(data.json()),
+
+        )
+
+        //.map(data => data.json() ) //
+        //.subscribe(data => console.log("taskService: create() =>",data, 'and user =>', user))
    }
    newProduct(product){
       console.log('taskservice: creating a new product')
@@ -75,10 +131,7 @@ export class TaskService {
       )
    }
    login(user, callback){
-     this.user = {
-       user: user
-     }
-     console.log('second step of login')
+     console.log('taskservice login():', user)
       this._http.post("/user/login", user)
         .map(data => data.json() ) //
         .subscribe(data => callback(data))

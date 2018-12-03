@@ -1,23 +1,58 @@
-<h1>New question</h1>
-<form name='myFrom' (submit)= "onSubmit()" #myForm="ngForm">
-	Question: <input type="text" name="question" required 
-    minlength="2" 
-     [(ngModel)]="quest.question" #question='ngModel'><strong *ngIf='question.invalid && ( question.dirty || question.touched)'><span style="color: red">  *Question should be at least 8 characters in length</span></strong><br>
+<h1>New Poll</h1>
+<a [routerLink]="['/dashboard']">Cancel</a>
+<div>
+    <form name='myForm' (submit)= "onSubmit()" #myForm="ngForm">
+        Title: <input type="text"
+        name="title"
+        required
+        minlength="8"
+        [(ngModel)]="poll.title"
+        #title='ngModel'>
+        <strong *ngIf='title.valid && ( title.dirty || title.touched)'><span style="color: green">  Looks good!</span></strong>
+      <strong *ngIf='title.invalid && ( title.dirty || title.touched)'><span style="color: red">  Title must be 8 characters long</span></strong>
+        <br>
+        Option 1:<input type="text"
+        name="option1"
+        required
+        minlength="3"
+        maxlength="24"
+        [(ngModel)]="poll.option1"
+        #option1='ngModel'>
+        <strong *ngIf='option1.valid && ( option1.dirty || option1.touched)'><span style="color: green">  Looks good!</span></strong>
+      <strong *ngIf='option1.invalid && ( option1.dirty || option1.touched)'><span style="color: red">  Option must be 3 characters long</span></strong>
+        <br>
+      Option 2:<input type="text"
+        name="option2"
+        required
+        minlength="3"
+        maxlength="24"
+        [(ngModel)]="poll.option2"
+        #option2='ngModel'>
+        <strong *ngIf='option2.valid && ( option2.dirty || option2.touched)'><span style="color: green">  Looks good!</span></strong>
+      <strong *ngIf='option2.invalid && ( option2.dirty || option2.touched)'><span style="color: red">  Option must be 3 characters long</span></strong>
 
-    Correct answer: <input type="text" name="correct" required 
-    minlength="1" 
-    maxlength="24"
-     [(ngModel)]="quest.correct" #correct='ngModel'><strong *ngIf='correct.invalid && ( correct.dirty || correct.touched)'><span style="color: red">  Answer is needed</span></strong><br>
+      <br>
+      Option 3:<input type="text"
+        name="option3"
+        required
+        minlength="3"
+        maxlength="24"
+        [(ngModel)]="poll.option3"
+        #option3='ngModel'>
+        <strong *ngIf='option3.valid && ( option3.dirty || option3.touched)'><span style="color: green">  Looks good!</span></strong>
+      <strong *ngIf='option3.invalid && ( option3.dirty || option3.touched)'><span style="color: red">  Option must be 3 characters long</span></strong>
 
-     Fake answer 1: <input type="text" name="fake1" required 
-    minlength="1" 
-    maxlength="24"
-     [(ngModel)]="quest.fake1" #fake1='ngModel'><strong *ngIf='fake1.invalid && ( fake1.dirty || fake1.touched)'><span style="color: red">  Answer is needed</span></strong><br>
+      <br>
+      Option 4:<input type="text"
+        name="option4"
+        required
+        minlength="3"
+        maxlength="24"
+        [(ngModel)]="poll.option4"
+        #option4='ngModel'>
+        <strong *ngIf='option4.valid && ( option4.dirty || option4.touched)'><span style="color: green">  Looks good!</span></strong>
+      <strong *ngIf='option4.invalid && ( option4.dirty || option4.touched)'><span style="color: red">  Option must be 3 characters long</span></strong>
 
-     Fake answer 2: <input type="text" name="fake2" required 
-    minlength="1" 
-    maxlength="24"
-     [(ngModel)]="quest.fake2" #fake2='ngModel'><strong *ngIf='fake2.invalid && ( fake2.dirty || fake2.touched)'><span style="color: red">  Answer is needed</span></strong><br>
-	
-	<br><input type="submit" name="submit" value="Add Question" [disabled]="myForm.invalid">
-</form>
+        <input type="submit" [disabled]="myForm.invalid">
+    </form>
+</div>

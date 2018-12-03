@@ -33,13 +33,14 @@ module.exports = {
 	showAll: function(req, res){
 		console.log('cotrollers: questions v stidiyu!')
 	    Question.find({})
-	        .sort("-score")
-	            .then(data => {
+	        .then(data => {
 	                res.json(data);
 	            })
 	            .catch(err => {
 	                console.log(err);
 	            });
   	},
+
+	
 
 }

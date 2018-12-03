@@ -1,6 +1,9 @@
 <div>
-
-</div>
-<div *ngFor='let x of users'>
-  <p>{{x.name}} {{x.score}}</p>
+	<h1>Login: </h1>
+	<form name='myForm' (submit)= "onSubmit()" #myForm="ngForm">
+		<input type="text" name="name1" required minlength="4" maxlength="24" [(ngModel)]="user.name" #name1='ngModel'>
+		<strong *ngIf='name1.valid && ( name1.dirty || name1.touched)'><span style="color: green">  Looks good!</span></strong>
+      <strong *ngIf='name1.invalid && ( name1.dirty || name1.touched)'><span style="color: red">  First name must be 4 characters long</span></strong>
+		<input type="submit" [disabled]="myForm.invalid">
+	</form>
 </div>
